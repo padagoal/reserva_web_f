@@ -23,3 +23,6 @@ urlpatterns = [
     path('inxe',index,name='indexe'),
 
 ]
+
+admin.site.site_title = ("Reserva Administratpr")
+admin.site.site_header = ("Reserva Administrator")
