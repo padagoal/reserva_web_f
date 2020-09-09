@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Fabriquero - Lista Personas</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+
+
+
+
+
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('{% static 'images/fab_1.jpg' %}');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Lista de Personas sin Asignar Mesas
+				</span>
+                <center>
+                    <img src="{% static 'images/logo_fabri.png' %}" class="figure-img" width="50%" style="padding-bottom: 1em"/>
+                </center>
+					<div class="container-login100-form-btn m-t-32">
+                    <span class="login100-form-title p-b-41">
+					                Seleccionar personas para asignar a una mesa:
+                    </span>
+                            {% if listVisita %}
+
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <ul class="list-group">
+                                            {% for dato in listVisita %}
+                                                <li class="list-group-item"
+                                                    id="li-check-{{ dato.persona.cedula_persona }}"
+                                                    onclick="selectPerson('{{ dato.persona.cedula_persona }}')">
+
+                                                    <input type="checkbox" id="{{ dato.persona.cedula_persona }}"
+                                                        name="listaCheckear">
+
+                                                    {{ dato.persona }}
+
+
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        <div class="jumbotron">
+                                          <h1 class="display-4">Asignar de Mesa</h1>
+                                          <p class="lead">Seleccione la mesa a asignar a las personas seleccionadas</p>
+                                          <hr class="my-4">
+                                            <label for="NumberMesa">Nro. Mesa:</label>
+                                            <input class="btn-lg" id="NumberMesa" type="number" min="1" max="50" placeholder="  "/>
+                                            <br>
+                                            <br>
+                                            <button class="btn btn-success btn-lg" href="#" role="button" onclick="settable()">Asignar Mesa</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            {% else %}
+                                <span class="login100-form-title p-b-41">
+					                Todas las Visitas tienen Mesas Asignadas
+				                </span>
+                            {% endif %}
+					</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<!--<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>-->
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <script>
+
+
+        $(function () {
+            var elpicker = $('.datetime-input');
+                elpicker.datetimepicker({
+                format:'DD-MM-YYYY',
+                defaultDate: new Date(),
+                    locale: 'es'
+            });
+        });
+
+    function selectPerson(checkid){
+
+        var item = document.getElementById('li-check-'+checkid);
+        var itemcheck = document.getElementById(checkid);
+
+        //item.classList.toggle('list-group-item-success');
+        if( itemcheck.checked ){
+            itemcheck.checked = false;
+            item.classList.remove("list-group-item-success");
+            return;
+        }
+        if( !itemcheck.checked ){
+            itemcheck.checked = true;
+            item.classList.add("list-group-item-success");
+            return;
+        }
+
+    }
+
+
+</script>
+    <script>
+     function settable(){
+            var listChecks = document.getElementsByName('listaCheckear');
+            var nroMesa = document.getElementById('NumberMesa');
+            var mesaSet = false;
+            var listChecked = [];
+            if(nroMesa.value>0 && nroMesa.value!= null){
+                mesaSet = true;
+            }
+
+            if(listChecks.length>0 && mesaSet){
+
+                for (i=0;i<listChecks.length;i++) {
+                    if (listChecks[i].checked) {
+                        listChecked.push(listChecks[i].id);
+
+                        var xhReq = new XMLHttpRequest();
+                         xhReq.open("GET", " {% url 'asigtable' %}?listp="+listChecks[i].id+"&table="+nroMesa.value, false);
+                         xhReq.send(null);
+                         var serverResponse = xhReq.responseText;
+
+                    }
+                }
+                window.location = {% url 'lista' %}
+
+
+
+            }else{
+                alert('Se debe seleccionar una persona para asignar a una mesa');
+                return;
+            }
+
+
+
+
+        }
+
+
+
+    </script>
+
+
+</body>
+</html>

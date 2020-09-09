@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Fabriquero - Reservas</title>
+	<title>Fabriquero - Registro</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -28,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <!--===============================================================================================-->
 
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-99089004-6"></script>
     <script>
@@ -40,7 +41,6 @@
 
 
 
-
 </head>
 <body>
 	
@@ -48,7 +48,7 @@
 		<div class="container-login100" style="background-image: url('{% static 'images/fab_1.jpg' %}');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					Reservas
+					Registro
 				</span>
                 <center>
                     <img src="{% static 'images/logo_fabri.png' %}" class="figure-img" width="50%" style="padding-bottom: 1em"/>
@@ -62,14 +62,14 @@
 
 					<div class="container-login100-form-btn m-t-32">
 						<button class="login100-form-btn">
-							Reservar
+							Ingresar
 						</button>
 
 
 					</div>
                     <center>
-                        <span style="padding-top: 1em;font-size: 10px">(*)Al reservar, usted acepta los Términos y
-                            Condiciones</span>
+                        <!--<span style="padding-top: 1em;font-size: 10px">(*)Al reservar, usted acepta los Términos y
+                            Condiciones</span>-->
                     </center>
 				</form>
 			</div>
@@ -128,9 +128,7 @@
 
     <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
-<script>
-
-
+    <script>
         $(function () {
             var elpicker = $('.datetime-input');
                 elpicker.datetimepicker({

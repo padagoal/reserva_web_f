@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ReservasApp.views import index
+from ReservasApp.views import index,visita,listPersonasSinMesa,asigtable
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('manage/', admin.site.urls),
     path('',index,name='index'),
+    path('visita/',visita,name='visita'),
+    path('lista/',listPersonasSinMesa,name='lista'),
+    path('asigtable/',asigtable,name='asigtable'),
     path('inxe',index,name='indexe'),
 
 ]

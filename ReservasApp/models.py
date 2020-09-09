@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 
@@ -41,10 +41,51 @@ class Reserva(models.Model):
     utilizado = models.BooleanField(default=False,blank=True,verbose_name='Fue utilizado?')
     activo = models.BooleanField(default=True,blank=True)
 
+    created_at = models.DateTimeField(verbose_name='Creado el',auto_now_add=True)
+
     class Meta:
         verbose_name= 'Reserva'
         verbose_name_plural = 'Reservas'
+        ordering = ('-fecha_reserva','activo')
 
     def __str__(self):
         return self.titular_apellido_reserva + ', ' + self.titular_nombre_reserva + ' '+str(self.fecha_reserva)
 
+
+class Persona(models.Model):
+    cedula_persona = models.IntegerField(verbose_name='Nro Cedula')
+    nombre_persona = models.CharField(verbose_name='Nombre',max_length=255)
+    apellido_persona = models.CharField(verbose_name='Apellido', max_length=255)
+    direccion_persona = models.CharField(verbose_name='Direccion Particular',max_length=500)
+    ciudad_persona = models.CharField(verbose_name='Ciudad',max_length=255)
+    barrio_persona = models.CharField(verbose_name='Barrio',max_length=255)
+    nro_telefono_persona = models.CharField(verbose_name='Nro de Telefono',max_length=255)
+    email_persona = models.EmailField(verbose_name='Correo Electronico')
+    cumpleanos_persona = models.DateField(verbose_name='Fecha de Nacimiento')
+
+    created_at = models.DateTimeField(verbose_name='Creado el', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Persona'
+        verbose_name_plural = 'Personas'
+
+    def __str__(self):
+        return str(self.cedula_persona) + ' ' + self.apellido_persona + ', ' + self.nombre_persona
+
+
+class Visita(models.Model):
+    fechahora_visita = models.DateTimeField(verbose_name='Fecha / Hora de Visita',default=timezone.now)
+    persona = models.ForeignKey(Persona,on_delete=models.DO_NOTHING,verbose_name='Persona')
+    mesa_asignada = models.IntegerField(verbose_name='Mesa Asignada',null=True,blank=True)
+
+    activo = models.BooleanField(verbose_name='Activo',default=True)
+
+    created_at = models.DateTimeField(verbose_name='Creado el', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Visita'
+        verbose_name_plural = 'Visitas'
+        ordering = ('-fechahora_visita', 'activo')
+
+    def __str__(self):
+        return str(self.fechahora_visita) + ' ' + self.persona.apellido_persona + ', ' + self.persona.nombre_persona
