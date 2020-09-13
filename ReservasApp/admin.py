@@ -10,8 +10,19 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 
 admin.site.register(Local)
 admin.site.register(Horario)
-admin.site.register(Persona)
 
+
+class PersonaAdmin(admin.ModelAdmin):
+    list_display = (('cedula_persona'),('nombre_persona'),('apellido_persona'),('ciudad_persona'),('cumpleanos_persona'))
+    search_fields = (('cedula_persona'),('nombre_persona'),('apellido_persona'),('ciudad_persona'),('cumpleanos_persona'))
+
+    list_filter = (
+        ('ciudad_persona'),
+        ('barrio_persona'),
+    )
+
+
+admin.site.register(Persona,PersonaAdmin)
 
 
 class ReservaAdmin(admin.ModelAdmin):
@@ -27,6 +38,7 @@ class ReservaAdmin(admin.ModelAdmin):
         ('activo'),
     )
 
+
 admin.site.register(Reserva,ReservaAdmin)
 
 
@@ -39,5 +51,6 @@ class VisitaAdmin(admin.ModelAdmin):
         ('mesa_asignada'),
 
     )
+
 
 admin.site.register(Visita,VisitaAdmin)
